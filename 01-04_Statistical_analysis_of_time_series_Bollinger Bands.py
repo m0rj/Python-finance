@@ -53,6 +53,11 @@ def plot_selected(df, simbols, sdate, edate):
     df = df.loc[str(sdate): str(edate), simbols]
     plot_data(df)
    
+def compute_daily_returns(df):  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    """Compute and return daily returns values"""
+    daily_return = (df / df.shift(1)) - 1
+    daily_return.iloc[0, :] = 0
+    return daily_return
 
 def test_run():
     # Define a date range
@@ -88,6 +93,9 @@ def test_run():
     ax.legend(loc='upper left')
     plt.show()
     
+    '''Compyte daily returns'''
+    daily_retutns = compute_daily_returns(df)
+    plot_data(daily_retutns, title='Daily returns')
     
 if __name__ == "__main__":
     test_run()
